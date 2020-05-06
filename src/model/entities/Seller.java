@@ -60,6 +60,10 @@ public class Seller implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getEmail() {
 		return email;
