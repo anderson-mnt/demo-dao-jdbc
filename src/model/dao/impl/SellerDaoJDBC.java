@@ -54,17 +54,8 @@ public class SellerDaoJDBC implements SellerDao	{
 			rs = st.executeQuery();
 			
 			if(rs.next()) {//se existe valor na query
-				Department dep = new Department();//cria nova instancia de Department
-				dep.setId(rs.getInt("Id"));
-				dep.setName(rs.getString("DepName"));
-				
-				Seller obj = new Seller();//cria nova instancia de Selle
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setEmail(rs.getString("Email"));
-				obj.setBaseSalary(rs.getDouble("BaseSalary"));
-				obj.setBirthDate(rs.getDate("BirthDate"));
-				obj.setDepartment(dep);
+				Department dep = InstantiateDepartment(rs);
+				Seller obj = InstantiateSeller(dep, rs);
 				return obj;
 			}
 		}
@@ -83,6 +74,28 @@ public class SellerDaoJDBC implements SellerDao	{
 		
 		return null;
 	}
+
+
+	private Seller InstantiateSeller(Department dep, ResultSet rs) throws SQLException {
+		Seller obj = new Seller();//cria nova instancia de Selle
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep);
+		return obj;
+	}
+
+	private Department InstantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();//cria nova instancia de Department
+		dep.setId(rs.getInt("Id"));
+		dep.setName(rs.getString("DepName"));
+		return dep;
+	}
+
+
+	
 
 	@Override
 	public List<Seller> findAll() {
