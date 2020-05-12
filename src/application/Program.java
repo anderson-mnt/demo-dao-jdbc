@@ -18,8 +18,9 @@ public class Program {
 		Seller seller = new Seller(21, "Pedro", "pedro@gmail.com", new Date(), 3000.0, obj);
 		System.out.println(obj);
 		System.out.println(seller);
+	
 		*/
-		SellerDao sellerDao = DaoFactory.createSellerDao();
+		SellerDao sellerDao = DaoFactory.createSellerDao(); //assim o programa conhece somente a interface e nao a implementacao
 		System.out.println("=== TEST 1: Seller findById ===");	
 		Seller seller = sellerDao.findById(3);
 		System.out.println(seller);
@@ -42,10 +43,17 @@ public class Program {
 		Seller newSeller = new Seller(null, "Anderson", "anderson@gmail.com", new Date(), 4000.0, department);
 		sellerDao.insert(newSeller);
 		System.out.println("Inserted! New id = "+ newSeller.getId());
+		
+		System.out.println("=== TEST 5: Seller update ===");
+		seller = sellerDao.findById(1);
+		seller.setName("Marta Waine");
+		sellerDao.update(seller);
+		System.out.println("Updated! "+ seller);
+		
+		
 	}
 	}
 	
-	//SellerDao sellerDao = DaoFactory.createSellerDao();//assim o programa conhce somente a interface e nao a implementacao
 	
 
 
